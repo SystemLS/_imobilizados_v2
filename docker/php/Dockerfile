@@ -39,7 +39,7 @@ RUN npm run build
 # ==========================================
 FROM php:8.3-fpm AS final_stage
 
-# Instalar pacotes de sistema necessários (gnupg, ca-certificates para MSSQL)
+# Instalar pacotes de sistema necessários
 RUN apt-get update && apt-get install -y \
     gnupg2 \
     apt-transport-https \
@@ -47,6 +47,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libicu-dev \
     libonig-dev \
+    libpq-dev \
     zip \
     unzip \
     curl \
@@ -55,20 +56,8 @@ RUN apt-get update && apt-get install -y \
     supervisor \
     && rm -rf /var/lib/apt/lists/*
 
-# Adicionar repositório da Microsoft e instalar ODBC Driver
-ENV ACCEPT_EULA=Y
-RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
-    && curl https://packages.microsoft.com/config/debian/12/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get update \
-    && apt-get install -y msodbcsql18 mssql-tools18 unixodbc-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instalar extensões do PHP
-RUN docker-php-ext-install pdo mbstring zip exif pcntl bcmath gd intl opcache
-
-# Instalar e habilitar sqlsrv e pdo_sqlsrv via PECL
-RUN pecl install sqlsrv pdo_sqlsrv \
-    && docker-php-ext-enable sqlsrv pdo_sqlsrv
+# Instalar extensões do PHP (PostgreSQL, etc)
+RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring zip exif pcntl bcmath gd intl opcache
 
 # Configurar OPcache para produção
 RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini \
