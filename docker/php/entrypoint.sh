@@ -4,13 +4,13 @@ set -e
 echo "Preparando a aplicação Laravel..."
 
 # Otimizações de configuração
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+php artisan config:cache || echo "Aviso: config:cache falhou"
+php artisan route:cache || echo "Aviso: route:cache falhou"
+php artisan view:cache || echo "Aviso: view:cache falhou"
 
 # Criar link simbólico do storage se não existir
 if [ ! -d "/var/www/html/public/storage" ]; then
-    php artisan storage:link
+    php artisan storage:link || echo "Aviso: storage:link falhou"
 fi
 
 # Aguardar o SQL Server (opcional, pode depender do ambiente)
