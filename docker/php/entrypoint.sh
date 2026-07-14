@@ -21,7 +21,6 @@ php artisan migrate --force || echo "Atenção: Migrations falharam. O banco de 
 # Substituir a porta do Nginx pela porta injetada pela Railway ($PORT)
 if [ -n "$PORT" ]; then
     echo "Configurando Nginx para escutar na porta $PORT..."
-    sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/sites-available/default
     sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf
 fi
 
