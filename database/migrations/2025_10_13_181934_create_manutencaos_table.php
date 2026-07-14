@@ -20,7 +20,7 @@ class CreateManutencaosTable extends Migration
             // Foreign key ajustada para BemId
             $table->foreign('bem_id')
                   ->references('BemId') // nome da PK na tabela bens
-                  ->on('bens')
+                  ->on('Bens')
                   ->onDelete('cascade');
         });
     }

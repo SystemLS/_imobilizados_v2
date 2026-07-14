@@ -20,7 +20,7 @@ class CreateReavaliacaosTable extends Migration
             // Foreign key ajustada para BemId
             $table->foreign('bem_id')
                   ->references('BemId') // coluna PK da tabela bens
-                  ->on('bens')
+                  ->on('Bens')
                   ->onDelete('cascade');
         });
     }

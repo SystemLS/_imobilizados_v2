@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('bens', function (Blueprint $table) {
+        Schema::table('Bens', function (Blueprint $table) {
             $table->date('data_aquisicao')->nullable()->after('ValorInicial');
         });
     }
 
     public function down()
     {
-        Schema::table('bens', function (Blueprint $table) {
+        Schema::table('Bens', function (Blueprint $table) {
             $table->dropColumn('data_aquisicao');
         });
     }

@@ -8,14 +8,14 @@ return new class extends Migration
 {
     public function up()
 {
-    Schema::table('subcategorias', function (Blueprint $table) {
+    Schema::table('Subcategorias', function (Blueprint $table) {
         $table->timestamps();
     });
 }
 
 public function down()
 {
-    Schema::table('subcategorias', function (Blueprint $table) {
+    Schema::table('Subcategorias', function (Blueprint $table) {
         $table->dropTimestamps();
     });
 }

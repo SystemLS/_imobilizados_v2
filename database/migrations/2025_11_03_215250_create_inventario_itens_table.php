@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bem_id')->nullable();
             $table->foreign('bem_id')
                   ->references('BemId')
-                  ->on('bens')
+                  ->on('Bens')
                   ->nullOnDelete();
 
             $table->string('etiqueta')->nullable();

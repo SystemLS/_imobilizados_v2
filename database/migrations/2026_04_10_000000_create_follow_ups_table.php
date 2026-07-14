@@ -23,7 +23,7 @@ return new class extends Migration {
         // Ajuste aqui: referência à coluna correta da tabela salas
         $table->foreign('sala_id')
               ->references('SalaId') // <-- coluna correta
-              ->on('salas')
+              ->on('Salas')
               ->onDelete('cascade');
 
         $table->foreign('usuario_id')

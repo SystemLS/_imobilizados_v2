@@ -26,7 +26,7 @@ return new class extends Migration {
 
         $table->foreign('bem_id')
               ->references('BemId') // <-- coluna correta da tabela bens
-              ->on('bens')
+              ->on('Bens')
               ->onDelete('cascade');
     });
 }
