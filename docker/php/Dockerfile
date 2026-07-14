@@ -51,6 +51,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     nano \
+    nginx \
+    supervisor \
     && rm -rf /var/lib/apt/lists/*
 
 # Adicionar repositório da Microsoft e instalar ODBC Driver
@@ -88,10 +90,15 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
+# Configurar Nginx e Supervisor
+COPY docker/nginx/default.conf /etc/nginx/sites-available/default
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Copiar script de inicialização
 COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Entrypoint e comando padrão
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

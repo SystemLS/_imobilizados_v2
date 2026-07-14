@@ -18,6 +18,17 @@ fi
 echo "Rodando migrations..."
 php artisan migrate --force || echo "Atenção: Migrations falharam. O banco de dados pode não estar pronto."
 
-# Executar o comando passado pro container (ex: php-fpm, queue, scheduler)
+# Substituir a porta do Nginx pela porta injetada pela Railway ($PORT)
+if [ -n "$PORT" ]; then
+    echo "Configurando Nginx para escutar na porta $PORT..."
+    sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/sites-available/default
+    sed -i "s/listen 80;/listen ${PORT};/g" /etc/nginx/conf.d/default.conf
+fi
+
+# Garantir que a pasta de logs e pid do supervisor existam
+mkdir -p /var/log/supervisor
+mkdir -p /var/run/supervisor
+
+# Executar o comando passado pro container (ex: supervisord)
 echo "Executando comando: $@"
 exec "$@"
