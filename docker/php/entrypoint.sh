@@ -15,8 +15,8 @@ fi
 
 # Aguardar o SQL Server (opcional, pode depender do ambiente)
 # Vamos tentar rodar as migrations.
-echo "Rodando migrations..."
-php artisan migrate --force || echo "Atenção: Migrations falharam. O banco de dados pode não estar pronto."
+echo "Rodando migrations em background (para não travar o deploy)..."
+nohup php artisan migrate --force > /var/log/migration.log 2>&1 &
 
 # Substituir a porta do Nginx pela porta injetada pela Railway ($PORT)
 if [ -n "$PORT" ]; then
