@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🎨 ESTILO GLOBAL PARA TODAS AS TABELAS DE DADOS-MESTRES */
+
+/* 🧱 Container da tabela */
+.tabela-container {
+    max-width: 1200px;      /* largura máxima da tabela */
+    margin: 0 auto;         /* centraliza na tela */
+    padding: 1.5rem;        /* espaçamento interno */
+    background-color: #fff; /* fundo branco padrão */
+    border-radius: 1rem;    /* cantos arredondados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* sombra suave */
+    overflow-x: auto;       /* rolagem horizontal automática */
+}
+
+/* 🧾 Tabela em si */
+.dados-mestres-table {
+    width: 100%;                /* ocupa toda a largura do container */
+    border-collapse: collapse;  /* remove espaçamento entre células */
+    text-align: left;
+}
+
+/* Cabeçalho */
+.dados-mestres-table thead {
+    background-color: #f8fafc; /* cinza muito claro */
+    color: #374151;            /* texto escuro */
+    font-weight: 600;
+}
+
+/* Células */
+.dados-mestres-table th,
+.dados-mestres-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb; /* linha divisória leve */
+}
+
+/* Alternância de cores nas linhas */
+.dados-mestres-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* Efeito hover */
+.dados-mestres-table tbody tr:hover {
+    background-color: #eef2ff; /* leve roxo azulado */
+    transition: background-color 0.2s ease;
+}
+
+/* 🔍 Em telas pequenas, manter boa visualização */
+@media (max-width: 768px) {
+    .tabela-container {
+        max-width: 100%; /* ocupa toda a largura da tela */
+        padding: 1rem;
+    }
+}
